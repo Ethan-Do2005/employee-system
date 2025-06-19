@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Employees per Department</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h2>Employees per Department (Pie Chart)</h2>
+    <div class="center-chart">
+    <canvas id="employeePie"></canvas>
+    </div>
+    <script>
+      const ctx = document.getElementById('employeePie').getContext('2d');
+      const labels = JSON.parse('{{ labels|safe|escapejs }}');
+      const values = JSON.parse('{{ values|safe|escapejs }}');
+      new Chart(ctx, {
+          type: 'pie',
+          data: {
+              labels: labels,
+              datasets: [{
+                  label: 'Employees per Department',
+                  data: values,
+                  backgroundColor: [
+                    'rgba(255,99,132,0.6)',
+                    'rgba(54,162,235,0.6)',
+                    'rgba(255,206,86,0.6)',
+                    'rgba(75,192,192,0.6)',
+                    'rgba(153,102,255,0.6)'
+                  ],
+              }]
+          }
+      });
+    </script>
+    <style>
+#employeePie {
+    max-width: 1000px;
+    max-height: 1000px;
+}
+
+.center-chart {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+</style>
+</body>
+</html>

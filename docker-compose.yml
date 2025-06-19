@@ -1,0 +1,42 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:17        
+    restart: always
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: tris2402
+    volumes:
+      - postgres_data:/var/lib/postgresql/data   
+    ports:
+      - "5434:5432"        
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    
+
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DEBUG: "True"
+      DB_NAME: postgres
+      DB_USER: postgres
+      DB_PASSWORD: tris2402
+      DB_HOST: db
+      DB_PORT: 5432
+      SECRET_KEY: tris2402
+
+volumes:
+  postgres_data:

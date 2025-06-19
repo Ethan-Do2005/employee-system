@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Monthly Attendance Overview</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .center-chart {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <h2 style="text-align:center;">Monthly Attendance Overview (Bar Chart)</h2>
+    <div class="center-chart">
+        <canvas id="attendanceBar" width="500" height="350"></canvas>
+    </div>
+    <script>
+        const months = JSON.parse('{{ months|safe|escapejs }}');
+        const chartData = JSON.parse('{{ chart_data|safe|escapejs }}');
+
+        const ctx = document.getElementById('attendanceBar').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: months,
+                datasets: chartData.map((dataset, i) => ({
+                    label: dataset.label,
+                    data: dataset.data,
+                    backgroundColor: [
+                        'rgba(75, 192, 192, 0.7)',
+                        'rgba(255, 206, 86, 0.7)',
+                        'rgba(255, 99, 132, 0.7)'
+                    ][i % 3]
+                })),
+            },
+            options: {
+                responsive: false,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
