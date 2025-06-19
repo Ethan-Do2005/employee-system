@@ -19,24 +19,43 @@ A Django RESTful API project for managing employees, departments, attendance, an
 ---
 
 ## 🏗️ Project Structure
-Employee-System/
+```bash
+EMPLOYEE-SYSTEM/
 │
 ├── employee_project/
-│ └── settings.py, urls.py, ...
+│ ├── init.py
+│ ├── asgi.py
+│ ├── settings.py
+│ ├── urls.py
+│ └── wsgi.py
 │
 ├── employees/
-│ ├── models.py, serializers.py, views.py, ...
-│ └── management/commands/seed_data.py
+│ ├── init.py
+│ ├── admin.py
+│ ├── apps.py
+│ ├── models.py
+│ ├── serializers.py
+│ ├── tests.py
+│ ├── urls.py
+│ ├── views.py
+│ ├── management/
+│ │ └── ... (custom commands/scripts)
+│ ├── migrations/
+│ │ └── ... (Django migration files)
+│ └── templates/
+│ ├── django_filters/
+│ ├── bar-chart.html
+│ └── pie-chart.html
 │
-├── templates/
-│ └── pie_chart.html, bar_chart.html
-│
-├── Dockerfile
+├── .gitignore
+├── db.sqlite3
 ├── docker-compose.yml
-├── requirements.txt
+├── Dockerfile
+├── local.env
+├── manage.py
 ├── README.md
-└── .env.example
-
+└── requirements.txt
+```
 
 ---
 
@@ -48,40 +67,49 @@ git clone https://github.com/Ethan-Do2005/employee-system.git
 ```
 
 ## 2. Build and run with Docker
+```bash
 docker-compose up --build
+```
 
 ## 3. Apply migrations & create superuser
+```bash
 docker-compose exec web python manage.py migrate
 docker-compose exec web python manage.py createsuperuser
+```
 
 ## 4. Seed demo data
+```bash
 docker-compose exec web python manage.py seed_data
+```
 
-## Django Run
+## 🧠 Django Run
 Django runs: http://localhost:8000
 
 ## 📄 API Documentation
 Swagger UI: http://localhost:8000/swagger/
 
-## Access the admin site
+## 🧪 Access the admin site
 Admin: http://localhost:8000/admin/
 
 ## 📊 Visualization Pages
-Employees per Department Pie Chart: http://localhost:8000/pie-chart/
-Monthly Attendance Overview Bar Chart: http://localhost:8000/bar-chart/
+- Employees per Department Pie Chart: http://localhost:8000/pie-chart/
+- Monthly Attendance Overview Bar Chart: http://localhost:8000/bar-chart/
 
 ## 📝 .env.example
-DEBUG=True
-SECRET_KEY=your_secret_key_here
-DB_NAME=postgres
-DB_USER=postgres
-DB_PASSWORD=your_db_password
-DB_HOST=db
-DB_PORT=5432
+- DEBUG=True
+- SECRET_KEY=your_secret_key_here
+- DB_NAME=postgres
+- DB_USER=postgres
+- DB_PASSWORD=your_db_password
+- DB_HOST=db
+- DB_PORT=5432
 
-🧹 Notes
+## 🧹 Notes
 1. Make sure Docker Desktop is running before docker-compose up.
 2. All development data is stored in Docker volumes (postgres_data).
-3. To reset everything (including database): docker-compose down -v
+3. To reset everything (including database): 
+```bash
+docker-compose down -v
+```
 
 

@@ -33,7 +33,7 @@ def employee_pie_chart(request):
     )
     labels = [d['employee_department__department_name'] for d in data]
     values = [d['count'] for d in data]
-    return render(request, 'charts.html', {
+    return render(request, 'pie-chart.html', {
         'labels': json.dumps(labels),
         'values': json.dumps(values),
     })
@@ -55,7 +55,7 @@ def attendance_bar_chart(request):
         month_idx = months.index(d['month'].strftime("%Y-%m"))
         chart_data[d['attendance_status']][month_idx] = d['count']
 
-    return render(request, 'attendance_chart.html', {
+    return render(request, 'bar-chart.html', {
         'months': json.dumps(months),
         'statuses': json.dumps(statuses),
         'chart_data': json.dumps([{'label': s, 'data': chart_data[s]} for s in statuses]),
